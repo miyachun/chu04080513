@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Template</title>
+<style>
+
+tr {
+      border: 1px solid black;
+      
+    }
+table {
+      
+      float: left;
+    }
+td{
+  height: 30px;
+}
+</style>
+</head>
+<body>
+
+
+
+<form method="POST" action="/findA">
+
+<select name="colour" method="GET" action="/">
+    <option  selected></option>
+    {% for d in d[:] %}
+      <option value="{{d}}">{{d}}</option>
+    {% endfor %}
+      </select>
+      <input type="submit" value ="Submit">
+    </form>
+
+
+</body>
+</html>

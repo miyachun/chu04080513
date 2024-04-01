@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Template</title>
+<style>
+
+tr {
+      border: 1px solid black;
+      
+    }
+table {
+      
+      float: left;
+    }
+td{
+  height: 30px;
+}
+</style>
+</head>
+<body>
+  {% for key, value in dict_example.items() %}
+<table >
+  {% if key == 'city' %}
+  {% for citypost in value %}
+  <tr>
+    <td>{{ citypost}}</td>    
+  </tr>
+  {% endfor %}
+  {% endif %}
+</table>
+
+<table >
+  {% if key == 'wx8' %}
+  {% for wx8post in value %}
+  <tr>
+    <td>{{ wx8post}}</td>    
+  </tr>
+  {% endfor %}
+  {% endif %}
+</table>
+
+<table >
+  {% if key == 'maxt8' %}
+  {% for maxt8post in value %}
+  <tr>
+    <td>{{ maxt8post}}</td>    
+  </tr>
+  {% endfor %}
+  {% endif %}
+</table>
+
+<table >
+  {% if key == 'mint8' %}
+  {% for mint8post in value %}
+  <tr>
+    <td>{{ mint8post}}</td>    
+  </tr>
+  {% endfor %}
+  {% endif %}
+</table>
+
+<table >
+  {% if key == 'pop8' %}
+  {% for pop8post in value %}
+  <tr>
+    <td>{{ pop8post}}</td>    
+  </tr>
+  {% endfor %}
+  {% endif %}
+</table>
+
+ {% endfor %}
+
+
+</body>
+</html>
