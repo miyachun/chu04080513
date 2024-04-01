@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask & Echarts Demo</title>
+    <script src="/static/js/echarts.min.js"></script>  
+</head>
+<body>
+    <h1>108年新竹市重要遊憩據點遊客人次統計</h1>
+    <div id="main"  style="width: 1000px;height:600px;border-style:solid;">
+        <center>顯示圖表</center>
+    </div>
+  
+    <script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+var xdata = {{xdata|tojson}}
+var ydata01 = {{ydata01|tojson}}
+var ydata02 = {{ydata02|tojson}}
+var ydata03 = {{ydata03|tojson}}
+var ydata04 = {{ydata04|tojson}}
+var ydata05 = {{ydata05|tojson}}
+option = {
+  color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
+  title: {
+    text: 'Gradient Stacked Area Chart'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross',
+      label: {
+        backgroundColor: '#6a7985'
+      }
+    }
+  },
+  legend: {
+    data: ['十八尖山', '青青草原', '城隍廟', '新竹漁港', '賞蟹步道']
+  },
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  grid: {
+    left: '3%',
+    right: '5%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: [
+    {
+      type: 'category',
+      boundaryGap: false,
+      data: xdata
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value'
+    }
+  ],
+  series: [
+    {
+      name: '十八尖山',
+      type: 'line',
+      stack: 'Total',
+      smooth: true,
+      lineStyle: {
+        width: 0
+      },
+      showSymbol: false,
+      areaStyle: {
+        opacity: 0.8,
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: 'rgb(128, 255, 165)'
+          },
+          {
+            offset: 1,
+            color: 'rgb(1, 191, 236)'
+          }
+        ])
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: ydata01
+    },
+    {
+      name: '青青草原',
+      type: 'line',
+      stack: 'Total',
+      smooth: true,
+      lineStyle: {
+        width: 0
+      },
+      showSymbol: false,
+      areaStyle: {
+        opacity: 0.8,
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: 'rgb(0, 221, 255)'
+          },
+          {
+            offset: 1,
+            color: 'rgb(77, 119, 255)'
+          }
+        ])
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: ydata02
+    },
+    {
+      name: '城隍廟',
+      type: 'line',
+      stack: 'Total',
+      smooth: true,
+      lineStyle: {
+        width: 0
+      },
+      showSymbol: false,
+      areaStyle: {
+        opacity: 0.8,
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: 'rgb(55, 162, 255)'
+          },
+          {
+            offset: 1,
+            color: 'rgb(116, 21, 219)'
+          }
+        ])
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: ydata03
+    },
+    {
+      name: '新竹漁港',
+      type: 'line',
+      stack: 'Total',
+      smooth: true,
+      lineStyle: {
+        width: 0
+      },
+      showSymbol: false,
+      areaStyle: {
+        opacity: 0.8,
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: 'rgb(255, 0, 135)'
+          },
+          {
+            offset: 1,
+            color: 'rgb(135, 0, 157)'
+          }
+        ])
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: ydata04
+    },
+    {
+      name: '賞蟹步道',
+      type: 'line',
+      stack: 'Total',
+      smooth: true,
+      lineStyle: {
+        width: 0
+      },
+      showSymbol: false,
+      label: {
+        show: true,
+        position: 'top'
+      },
+      areaStyle: {
+        opacity: 0.8,
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+          {
+            offset: 0,
+            color: 'rgb(255, 191, 0)'
+          },
+          {
+            offset: 1,
+            color: 'rgb(224, 62, 76)'
+          }
+        ])
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: ydata05
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask & Echarts Demo</title>
+    <script src="/static/js/echarts.min.js"></script>   
+</head>
+<body>
+    <h1>108年十八尖山旅客計數統計</h1>
+    <div id="main"  style="width: 600px;height:600px;border-style:solid;">
+        <center>顯示圖表</center>
+    </div>
+   
+
+    <script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+var data = {{data|tojson}}
+option = {
+  title: {
+    text: '108新竹市重要遊憩據點遊客人次統計',
+    subtext: 'Fake Data',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    orient: 'vertical',
+    left: 'left'
+  },
+  series: [
+    {
+      name: '十八尖山',
+      type: 'pie',
+      radius: '50%',
+      data: data,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+    </script>
+
+
+</body>
+</html>

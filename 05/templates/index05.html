@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask & Echarts Demo</title>
+    <script src="/static/js/echarts.min.js"></script>    
+</head>
+<body>
+    <h1>108年新竹市重要遊憩據點遊客人次統計</h1>
+    <div id="main"  style="width: 1000px;height:600px;border-style:solid;">
+        <center>顯示圖表</center>
+    </div>    
+
+    <script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+var xdata = {{xdata|tojson}}
+var ydata01 = {{ydata01|tojson}}
+var ydata02 = {{ydata02|tojson}}
+var ydata03 = {{ydata03|tojson}}
+var ydata04 = {{ydata04|tojson}}
+var ydata05 = {{ydata05|tojson}}
+option = {
+  title: {
+    text: 'Basic Radar Chart'
+  },
+  legend: {
+    data: ['十八尖山', '青青草原','城隍廟','新竹漁港','賞蟹步道']
+  },
+  radar: {
+    // shape: 'circle',
+    indicator: [
+      { name: '01', max: 500000 },
+      { name: '02', max: 500000 },
+      { name: '03', max: 500000 },
+      { name: '04', max: 500000 },
+      { name: '05', max: 500000 },
+      { name: '06', max: 500000 },
+      { name: '07', max: 500000 },
+      { name: '08', max: 500000 },
+      { name: '09', max: 500000 },
+      { name: '10', max: 500000 },
+      { name: '11', max: 500000 },
+      { name: '12', max: 500000 }
+    ]
+  },
+  series: [
+    {
+      name: 'Budget vs spending',
+      type: 'radar',
+      data: [
+        {
+          value: ydata01,
+          name: '十八尖山'
+        },
+        {
+          value: ydata02,
+          name: '青青草原'
+        },
+        {
+          value: ydata03,
+          name: '城隍廟'
+        },
+        {
+          value: ydata04,
+          name: '新竹漁港'
+        },
+        {
+          value: ydata05,
+          name: '賞蟹步道'
+        }
+      ]
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+
+
+    </script>
+
+
+</body>
+</html>

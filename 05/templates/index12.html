@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask & Echarts Demo</title>
+    <script type="text/javascript" src="/static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="/static/js/echarts-gl.min.js"></script>
+</head>
+<body>
+    <h1>108年新竹市重要遊憩據點遊客人次統計</h1>
+    <div id="main"  style="width: 1000px;height:600px;border-style:solid;">
+        <center>顯示圖表</center>
+    </div>    
+
+    <script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+var xdata = {{xdata|tojson}}
+var ydata01 = {{ydata01|tojson}}
+var ydata02 = {{ydata02|tojson}}
+var ydata03 = {{ydata03|tojson}}
+var ydata04 = {{ydata04|tojson}}
+var ydata05 = {{ydata05|tojson}}
+var ydata06 = {{ydata06|tojson}}
+var ydata07 = {{ydata07|tojson}}
+var ydata08 = {{ydata08|tojson}}
+
+
+// prettier-ignore
+var hours =['十八尖山', '青青草原','城隍廟','新竹漁港','賞蟹步道','青草湖','十七公里自行車道','新竹公園'];
+// prettier-ignore
+var days =xdata;
+
+
+// prettier-ignore
+var data = [
+[0,0,138881], [1,0,137512],[2,0,101301],[3,0,186020],[4,0,160695],[5,0,169084],[6,0,144669],[7,0,135557],[8,0,127176],[9,0,180991],[10,0,180144],[11,0,147301],
+[0,1,2226], [1,1,40034],[2,1,32227],[3,1,64880],[4,1,30172],[5,1,31216],[6,1,22904],[7,1,26594],[8,1,20196],[9,1,28184],[10,1,30951],[11,1,35819],
+[0,2,186932], [1,2,251404],[2,2,157317],[3,2,205830],[4,2,212146],[5,2,187465],[6,2,198434],[7,2,231224],[8,2,195564],[9,2,191720],[10,2,216609],[11,2,278915],   
+[0,3,226935], [1,3,219437],[2,3,241011],[3,3,272600],[4,3,309255],[5,3,331952],[6,3,244742],[7,3,355109],[8,3,383046],[9,3,361919],[10,3,388662],[11,3,324479], 
+[0,4,8574], [1,4,20629],[2,4,20187],[3,4,29660],[4,4,24648],[5,4,28083],[6,4,17773],[7,4,39719],[8,4,18363],[9,4,22722],[10,4,9780],[11,4,10636], 
+[0,5,14436], [1,5,16169],[2,5,12116],[3,5,17830],[4,5,15267],[5,5,20814],[6,5,11831],[7,5,11184],[8,5,10686],[9,5,23675],[10,5,18252],[11,5,24947], 
+[0,6,7538], [1,6,17081],[2,6,8621],[3,6,18440],[4,6,26268],[5,6,25789],[6,6,14751],[7,6,22155],[8,6,12789],[9,6,23162],[10,6,22773],[11,6,16739], 
+[0,7,16902], [1,7,42939],[2,7,26910],[3,7,26210],[4,7,21465],[5,7,20129],[6,7,15135],[7,7,31347],[8,7,16797],[9,7,20279],[10,7,20274],[11,7,105026], 
+]
+
+option = {
+  tooltip: {},
+  visualMap: {
+    max: 400000,
+    inRange: {
+        color: [
+        '#313695',
+        '#4575b4',
+        '#74add1',
+        '#abd9e9',
+        '#e0f3f8',
+        '#ffffbf',
+        '#fee090',
+        '#fdae61',
+        '#f46d43',
+        '#d73027',
+        '#a50026'
+      ]
+    }
+  },
+  xAxis3D: {
+    type: 'category',
+    data: hours
+  },
+  yAxis3D: {
+    type: 'category',
+    data: days
+  },
+  zAxis3D: {
+    type: 'value'
+  },
+  grid3D: {
+    boxWidth: 200,
+    boxDepth: 80,
+    viewControl: {
+       projection: 'orthographic'
+    },
+    light: {
+      main: {
+        intensity: 1.2,
+        shadow: true
+      },
+      ambient: {
+        intensity: 0.3
+      }
+    }
+  },
+  series: [
+    {
+      type: 'bar3D',
+      data: data.map(function (item) {
+        return {
+          value: [item[1], item[0], item[2]]
+        };
+      }),
+      shading: 'lambert',
+      label: {
+        fontSize: 16,
+        borderWidth: 1
+      },
+      emphasis: {
+        label: {
+          fontSize: 20,
+          color: '#900'
+        },
+        itemStyle: {
+          color: '#900'
+        }
+      }
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+
+
+
+
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask & Echarts Demo</title>
+    <script src="/static/js/echarts.min.js"></script>  
+</head>
+<body>
+    <h1>108年新竹市重要遊憩據點遊客人次統計</h1>
+    <div id="main"  style="width: 1000px;height:600px;border-style:solid;">
+        <center>顯示圖表</center>
+    </div>   
+
+    <script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+var xdata = {{xdata|tojson}}
+var ydata01 = {{ydata01|tojson}}
+var ydata02 = {{ydata02|tojson}}
+var ydata03 = {{ydata03|tojson}}
+var ydata04 = {{ydata04|tojson}}
+var ydata05 = {{ydata05|tojson}}
+option = {
+  title: {
+    text: 'Rainfall vs Evaporation',
+    subtext: 'Fake Data'
+  },
+  tooltip: {
+    trigger: 'axis'
+  },
+  legend: {
+    data: ['十八尖山', '青青草原','城隍廟','新竹漁港','賞蟹步道']
+  },
+  toolbox: {
+    show: true,
+    feature: {
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar'] },
+      restore: { show: true },
+      saveAsImage: { show: true }
+    }
+  },
+  calculable: true,
+  xAxis: [
+    {
+      type: 'category',
+      // prettier-ignore
+      data: xdata
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value'
+    }
+  ],
+  series: [
+    {
+      name: '十八尖山',
+      type: 'bar',
+      data:ydata01,
+      markPoint: {
+        data: [
+          { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: 'Avg' }]
+      }
+    },
+    {
+      name: '青青草原',
+      type: 'bar',
+      data: ydata02,
+      markPoint: {
+        data: [
+        { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: 'Avg' }]
+      }
+    },
+    {
+      name: '城隍廟',
+      type: 'bar',
+      data: ydata03,
+      markPoint: {
+        data: [
+        { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: 'Avg' }]
+      }
+    },
+    {
+      name: '新竹漁港',
+      type: 'bar',
+      data: ydata04,
+      markPoint: {
+        data: [
+        { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: 'Avg' }]
+      }
+    },
+    {
+      name: '賞蟹步道',
+      type: 'bar',
+      data: ydata05,
+      markPoint: {
+        data: [
+        { type: 'max', name: 'Max' },
+          { type: 'min', name: 'Min' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: 'Avg' }]
+      }
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+
+
+    </script>
+
+
+</body>
+</html>

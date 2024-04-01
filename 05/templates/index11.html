@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask & Echarts Demo</title>
+    <script src="/static/js/echarts.min.js"></script>    
+</head>
+<body>
+    <h1>108年新竹市重要遊憩據點遊客人次統計</h1>
+    <div id="main"  style="width: 1000px;height:600px;border-style:solid;">
+        <center>顯示圖表</center>
+    </div>    
+
+    <script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option;
+var xdata = {{xdata|tojson}}
+var ydata01 = {{ydata01|tojson}}
+var ydata02 = {{ydata02|tojson}}
+var ydata03 = {{ydata03|tojson}}
+var ydata04 = {{ydata04|tojson}}
+var ydata05 = {{ydata05|tojson}}
+var ydata06 = {{ydata06|tojson}}
+var ydata07 = {{ydata07|tojson}}
+var ydata08 = {{ydata08|tojson}}
+option = {
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross',
+      crossStyle: {
+        color: '#999'
+      }
+    }
+  },
+  toolbox: {
+    feature: {
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar'] },
+      restore: { show: true },
+      saveAsImage: { show: true }
+    }
+  },
+  legend: {
+    data: ['十八尖山', '青青草原','城隍廟','新竹漁港','賞蟹步道','青草湖','十七公里自行車道','新竹公園']
+  },
+  xAxis: [
+    {
+      type: 'category',
+      data: xdata,
+      axisPointer: {
+        type: 'shadow'
+      }
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+      name: '-十萬-',
+      min: 0,
+      max: 400000,
+      interval: 100000,
+      axisLabel: {
+        formatter: '{value} '
+      }
+    },
+    {
+      type: 'value',
+      name: '-萬-',
+      min: 0,
+      max: 400000,
+      interval: 50000,
+      axisLabel: {
+        formatter: '{value} '
+      }
+    }
+  ],
+  series: [
+    {
+      name: '青青草原',
+      type: 'bar',
+      tooltip: {
+        valueFormatter: function (value) {
+          return value ;
+        }
+      },
+      data: ydata02
+    },
+    {
+      name: '賞蟹步道',
+      type: 'bar',
+      tooltip: {
+        valueFormatter: function (value) {
+          return value ;
+        }
+      },
+      data: ydata05
+    },
+    {
+      name: '青草湖',
+      type: 'bar',
+      tooltip: {
+        valueFormatter: function (value) {
+          return value ;
+        }
+      },
+      data: ydata06
+    },
+    {
+      name: '十七公里自行車道',
+      type: 'bar',
+      tooltip: {
+        valueFormatter: function (value) {
+          return value ;
+        }
+      },
+      data: ydata07
+    },
+    {
+      name: '新竹公園',
+      type: 'bar',
+      tooltip: {
+        valueFormatter: function (value) {
+          return value ;
+        }
+      },
+      data: ydata08
+    },
+    {
+      name: '十八尖山',
+      type: 'line',
+      yAxisIndex: 1,
+      tooltip: {
+        valueFormatter: function (value) {
+          return value ;
+        }
+      },
+      data: ydata01
+    },
+    {
+      name: '城隍廟',
+      type: 'line',
+      yAxisIndex: 1,
+      tooltip: {
+        valueFormatter: function (value) {
+          return value;
+        }
+      },
+      data: ydata03
+    },
+    {
+      name: '新竹漁港',
+      type: 'line',
+      yAxisIndex: 1,
+      tooltip: {
+        valueFormatter: function (value) {
+          return value ;
+        }
+      },
+      data: ydata04
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+
+
+    </script>
+
+
+</body>
+</html>
