@@ -7,10 +7,10 @@ import os
 import json
 
 app = Flask(__name__)
-line_bot_api = LineBotApi(os.environ.get("LINE_CHANNEL_ACCESS_TOKEN"))
-line_handler = WebhookHandler(os.environ.get("LINE_CHANNEL_SECRET"))
+line_bot_api = LineBotApi('LINE_CHANNEL_ACCESS_TOKEN')
+line_handler = WebhookHandler('LINE_CHANNEL_SECRET')
 
-url =os.environ.get('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=(API授權碼)&format=JSON')
+url ='https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=(API授權碼)&format=JSON'
 ansA=[]
 city=''
 
