@@ -1,63 +1,37 @@
-from flask import Flask, request, abort,render_template,redirect
-
+from flask import Flask, request, abort
+from linebot import LineBotApi, WebhookHandler
+from linebot.exceptions import InvalidSignatureError
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
 import json,urllib.request
-
-
-
-from linebot.v3 import (
-    WebhookHandler
-)
-from linebot.v3.exceptions import (
-    InvalidSignatureError
-)
-from linebot.v3.messaging import (
-    Configuration,
-    ApiClient,
-    MessagingApi,
-    ReplyMessageRequest,
-    TextMessage,
-    StickerMessage,
-    Emoji,
-    ImageMessage
-)
-from linebot.v3.webhooks import (
-    MessageEvent,
-    TextMessageContent,
-    StickerMessageContent,
-    
-)
+import os
+import json
 
 app = Flask(__name__)
+line_bot_api = LineBotApi(os.environ.get("LINE_CHANNEL_ACCESS_TOKEN"))
+line_handler = WebhookHandler(os.environ.get("LINE_CHANNEL_SECRET"))
 
-myT='YOUR_CHANNEL_ACCESS_TOKEN'
-myC='YOUR_CHANNEL_SECRET'
-
-configuration = Configuration(access_token=myT)
-handler = WebhookHandler(myC)
-
+url =os.environ.get('https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=(API授權碼)&format=JSON')
 ansA=[]
 city=''
 
-url = 'https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=(API授權碼)&format=JSON'
-
+@app.route('/')
+def home():
+    return 'Hello World from Vercel!'
 
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
-
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
-
     # handle webhook body
     try:
-        handler.handle(body, signature)
+        line_handler.handle(body, signature)
     except InvalidSignatureError:
-        app.logger.info("Invalid signature. Please check your channel access token/channel secret.")
         abort(400)
-
     return 'OK'
+
 
 def myG(aa):
     ansA.clear()
@@ -77,97 +51,47 @@ def myG(aa):
             ansA.append(wx)
             ansA.append(mintT)
             ansA.append(maxtT)
-    return ansA   
+    return ansA
 
 
-@handler.add(MessageEvent, message=StickerMessageContent)
-def handle_sticker_message(event):
-    with ApiClient(configuration) as api_client:
-        line_bot_api = MessagingApi(api_client)
+
+@line_handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):        
+
+    if event.message.text == "1":        
         line_bot_api.reply_message(
-            ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[StickerMessage(
-                    package_id=event.message.package_id,
-                    sticker_id=event.message.sticker_id)
-                ]
-            )
-        )
+            event.reply_token,
+            TextSendMessage(text=str(myG('臺北市'))))        
 
-
-@handler.add(MessageEvent, message=TextMessageContent)
-def handle_message(event):
-    getText=event.message.text
-    #bb=myG('新北市')
-    #print(bb[3])
-    with ApiClient(configuration) as api_client:
-        line_bot_api = MessagingApi(api_client)
-        if getText=='1':            
-            line_bot_api.reply_message_with_http_info(
-            ReplyMessageRequest(
-                reply_token=event.reply_token,
-            messages=[
-                TextMessage(text='回傳:2023/10/26'),
-                TextMessage(text='答案是~' + str(myG('臺北市')))
-           ]
-            
-            )
-        )
-        elif getText=='2':            
-            line_bot_api.reply_message_with_http_info(
-            ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[TextMessage(text=str(myG('桃園市')))]
-            )
-        )
-        elif getText=='3':            
-            line_bot_api.reply_message_with_http_info(
-            ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[TextMessage(text=str(myG('新竹市'))),]
-            )
-        )
-        elif getText=='4':            
-            line_bot_api.reply_message_with_http_info(
-                ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[StickerMessage(
-                    package_id='446',
-                    sticker_id='1988')
-                ]
-            )
-        )
-        elif getText=='5':
-            emojis = [Emoji(index=0, product_id="5ac1bfd5040ab15980c9b435", emoji_id="001"),
-                      Emoji(index=13, product_id="5ac1bfd5040ab15980c9b435", emoji_id="002")]
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[TextMessage(text='$ LINE emoji $', emojis=emojis)]
-                )
-            )
-        elif getText=='6':            
-            
-            url='https://avatars.githubusercontent.com/u/100542608?s=96&v=4'
-            
-            app.logger.info("url=" + url)
-            line_bot_api.reply_message(
-                ReplyMessageRequest(
-                    reply_token=event.reply_token,
-                    messages=[
-                        ImageMessage(original_content_url=url, preview_image_url=url)
-                    ]
-                )
-            )
-        else:
-            line_bot_api.reply_message_with_http_info(
-            ReplyMessageRequest(
-                reply_token=event.reply_token,
-                messages=[TextMessage(text='1->臺北市.2->桃園市.3->新竹市')]
-            )
-        )
-
-
+    elif event.message.text == "2":        
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=str(myG('桃園市'))))
+        
+    elif event.message.text=='3':            
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=str(myG('新竹市'))))
+        
+    elif event.message.text=='4':            
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=str(myG('臺中市'))))
+        
+    elif event.message.text=='5':
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=str(myG('臺南市'))))
+        
+    elif event.message.text=='6':            
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=str(myG('高雄市'))))
+        
+    else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text="只有1-6的數字"))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
