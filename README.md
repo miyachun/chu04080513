@@ -5,7 +5,9 @@ https://developers.line.biz/zh-hant/
 https://ngrok.com/  
   
 https://www.python.org/  
-
+  
+https://echarts.apache.org/zh/index.html  
+  
 虛擬環境安裝  
 1->環境變數  
 C:\Users\L104\AppData\Local\Programs\Python\Python310\Scripts  
