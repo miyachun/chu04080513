@@ -16,7 +16,7 @@ city=''
 
 @app.route('/')
 def home():
-    return 'Hello World from Vercel!'
+    return 'Hello World!'
 
 @app.route("/callback", methods=['POST'])
 def callback():
