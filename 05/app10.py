@@ -2,7 +2,7 @@ from flask import Flask, render_template
 import pandas as pd
 
 app = Flask(__name__)
-df = pd.read_csv('static/people108.csv')
+df = pd.read_csv('static/people111.csv')
 
 @app.route('/')
 def index():
