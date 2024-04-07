@@ -7,6 +7,7 @@ app = Flask(__name__)
 line_bot_api = LineBotApi('LINE_CHANNEL_ACCESS_TOKEN')
 line_handler = WebhookHandler('LINE_CHANNEL_SECRET')
 
+
 @app.route('/')
 def home():
     return 'Hello World'
@@ -34,8 +35,8 @@ def handle_message(event):
     getA=event.message.text        
 
     if getA =='0' :
-        photopath='XXX'
-        imageURL = photopath+'/static/a.jpg'
+        photopath='XXXX'        
+        imageURL = random.choice([photopath+'/static/a.jpg', photopath+'/static/b.jpg', photopath+'/static/c.jpg', photopath+'/static/d.jpg'])
         img_message = ImageSendMessage(original_content_url=imageURL, preview_image_url=imageURL)
         line_bot_api.reply_message(event.reply_token,img_message)
        
