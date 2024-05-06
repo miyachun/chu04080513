@@ -11,7 +11,7 @@ virtualenv 取一個名稱
 到虛擬環境Scripts目錄中啟動  
 activate  
 
--相關-
+-相關-  
 virtualenv->virtualenv -p python3.10 XXX  
 python->https://www.python.org/  
 氣象資料開放平臺->https://opendata.cwa.gov.tw  
