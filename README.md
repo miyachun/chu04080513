@@ -13,9 +13,9 @@ activate
 
 -相關-  
 virtualenv->virtualenv -p python3.10 XXX  
-python->https://www.python.org/  
-氣象資料開放平臺->https://opendata.cwa.gov.tw  
+python->https://www.python.org/   
 flask->https://flask.palletsprojects.com/en/3.0.x/  
+氣象資料開放平臺->https://opendata.cwa.gov.tw  
 sqlitebrowser->https://sqlitebrowser.org/dl/  
 line_develop->https://developers.line.biz/zh-hant/  
 ngrok->https://ngrok.com/  
